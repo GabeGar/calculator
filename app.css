@@ -1,5 +1,10 @@
 /********** Basic Styles **********/
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 html {
     box-sizing: border-box;
     font-size: 150%;
@@ -19,6 +24,53 @@ body {
 
 .calculator {
     background-color: wheat;
+    width: 500px;
+}
+
+.calculator_display {
+    font-size: 1.75rem;
+    text-align: end;
+    padding-top: 15px;
+    padding-right: 10px;
+    background-color: #252525;
+    color: white;
+}
+
+button {
+    background-color: #fff;
+    color: rgb(28, 28, 28);
+    border: 1px solid #b5b5b5;
+    border-radius: 3px;
+    height: 60px;
+    font-size: 2rem;
+}
+
+button:hover {
+    background-color: #dcdcdc;
+}
+
+.operator {
+    color: #337cac;
+}
+
+.all_clear {
+    color: rgb(210, 50, 50);
+}
+
+.all_clear:hover {
+    background-color: rgb(217, 217, 217);
+}
+
+.equal_sign {
+    background-color: #2e86c0;
+    border-color: #337cac;
+    color: #fff;
+}
+
+.equal_sign:hover {
+    background-color: #4e9ed4;
+}
+
+.calculator_buttons {
     display: grid;
-    grid-template-columns: repeat(4 200px);
 }
