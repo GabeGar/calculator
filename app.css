@@ -60,6 +60,8 @@ button:hover {
     font-size: 1.5rem;
     background-color: #d23232;
     color: white;
+    grid-row: 4/ 4;
+    grid-column: 2/ 2;
 }
 
 .backspace:hover {
@@ -97,11 +99,6 @@ button:hover {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 20px;
-}
-
-.backspace {
-    grid-row: 4/ 4;
-    grid-column: 2/ 2;
 }
 
 .operator.add {
