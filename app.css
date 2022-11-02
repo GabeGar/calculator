@@ -49,16 +49,29 @@ button:hover {
     background-color: #dcdcdc;
 }
 
+.backspace {
+    font-size: 1.5rem;
+    background-color: #d23232;
+    color: white;
+}
+
+.backspace:hover {
+    background-color: #fff;
+    color: #ff0000;
+}
+
 .operator {
     color: #337cac;
 }
 
 .all_clear {
     color: #d23232;
+    grid-row: 5 / 5;
+    grid-column: 1 / 5;
 }
 
 .all_clear:hover {
-    background-color: rgb(217, 217, 217);
+    background-color: #d9d9d9;
     color: #ff0000;
 }
 
@@ -77,6 +90,11 @@ button:hover {
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
     padding: 20px;
+}
+
+.backspace {
+    grid-row: 4/ 4;
+    grid-column: 2/ 2;
 }
 
 .operator.add {
