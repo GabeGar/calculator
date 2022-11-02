@@ -1,0 +1,24 @@
+/********** Basic Styles **********/
+
+html {
+    box-sizing: border-box;
+    font-size: 150%;
+    font-weight: 300;
+    font-family: 'monospace', serif, sans-serif;
+}
+
+body {
+    background-color: lightblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/********** Calculator Styles **********/
+
+.calculator {
+    background-color: wheat;
+    display: grid;
+    grid-template-columns: repeat(4 200px);
+}
