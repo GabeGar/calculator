@@ -40,6 +40,7 @@ h1 {
     padding: 15px 15px 10px;
     background-color: #252525;
     color: white;
+    overflow: auto;
 }
 
 button {
