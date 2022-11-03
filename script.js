@@ -1,12 +1,27 @@
 const calcDisplay = document.querySelector(".calculator_display");
 const allNumbers = document.querySelectorAll(".number");
 const clearBtn = document.querySelector(".all_clear");
+const backspaceBtn = document.querySelector(".backspace");
 
 let currentDisplayValue = "";
 
-function clearDisplay(event) {
+function clearDisplay() {
     calcDisplay.textContent = "0";
     currentDisplayValue = "";
+}
+
+function deleteLastDigit(event) {
+    let displayLength = calcDisplay.textContent.length;
+    let lastNum = calcDisplay.textContent[displayLength - 1];
+
+    if (calcDisplay.textContent.length === 1) {
+        calcDisplay.textContent = "0";
+    } else {
+        calcDisplay.textContent = calcDisplay.textContent.replace(lastNum, "");
+    }
+    currentDisplayValue = calcDisplay.textContent;
+    console.log(currentDisplayValue);
+    return currentDisplayValue;
 }
 
 const operators = {
@@ -46,4 +61,7 @@ allNumbers.forEach((number) =>
     number.addEventListener("click", displayNumbers)
 );
 
+// Clears the display and stored value memory
 clearBtn.addEventListener("click", clearDisplay);
+
+backspaceBtn.addEventListener("click", deleteLastDigit);
