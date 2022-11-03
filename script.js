@@ -1,7 +1,13 @@
 const calcDisplay = document.querySelector(".calculator_display");
 const allNumbers = document.querySelectorAll(".number");
+const clearBtn = document.querySelector(".all_clear");
 
 let currentDisplayValue = "";
+
+function clearDisplay(event) {
+    calcDisplay.textContent = "0";
+    currentDisplayValue = "";
+}
 
 const operators = {
     "+": function add(a, b) {
@@ -32,9 +38,12 @@ function displayNumbers(event) {
         calcDisplay.textContent += event.target.value;
     }
     currentDisplayValue = calcDisplay.textContent;
+    console.log(currentDisplayValue);
     return currentDisplayValue;
 }
 
 allNumbers.forEach((number) =>
     number.addEventListener("click", displayNumbers)
 );
+
+clearBtn.addEventListener("click", clearDisplay);
