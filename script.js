@@ -2,6 +2,7 @@ const display = document.querySelector(".calculator_display");
 const allNumbers = document.querySelectorAll(".number");
 const operations = document.querySelectorAll(".operator");
 const clear = document.querySelector(".all_clear");
+const backspace = document.querySelector(".backspace");
 
 let currentDisplayValue = "";
 let a = null;
@@ -30,13 +31,25 @@ const operators = {
     },
 };
 
-clearCalc = () => {
+const clearCalc = () => {
     display.textContent = "0";
     currentDisplayValue = "";
     a = null;
     b = null;
     symbol = null;
     result = null;
+    console.clear();
+};
+
+const removeFromEnd = () => {
+    let displayLength = display.textContent.length;
+
+    if (displayLength === 1) display.textContent = "0";
+    else {
+        display.textContent = display.textContent.slice(0, displayLength - 1);
+    }
+    currentDisplayValue = display.textContent;
+    return currentDisplayValue;
 };
 
 function operate(symbol, a, b) {
@@ -90,3 +103,4 @@ allNumbers.forEach((number) =>
 );
 operations.forEach((symbol) => symbol.addEventListener("click", displaySymbol));
 clear.addEventListener("click", clearCalc);
+backspace.addEventListener("click", removeFromEnd);
