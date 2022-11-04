@@ -1,33 +1,13 @@
-const calcDisplay = document.querySelector(".calculator_display");
+const display = document.querySelector(".calculator_display");
 const allNumbers = document.querySelectorAll(".number");
-const clearBtn = document.querySelector(".all_clear");
-const backspaceBtn = document.querySelector(".backspace");
-const allOperators = document.querySelectorAll(".operator");
-const equals = document.querySelector(".equal_sign");
+const operations = document.querySelectorAll(".operator");
+const clear = document.querySelector(".all_clear");
 
 let currentDisplayValue = "";
-let currentResult = 0;
-
-function clearDisplay() {
-    calcDisplay.textContent = "0";
-    currentDisplayValue = "";
-    console.clear();
-}
-
-function deleteLastChar() {
-    let displayLength = calcDisplay.textContent.length;
-    if (calcDisplay.textContent.length === 1) {
-        calcDisplay.textContent = "0";
-    } else {
-        calcDisplay.textContent = currentDisplayValue.slice(
-            0,
-            displayLength - 1
-        );
-    }
-    currentDisplayValue = calcDisplay.textContent;
-    console.log(currentDisplayValue);
-    return currentDisplayValue;
-}
+let a = null;
+let b = null;
+let symbol = null;
+let result = null;
 
 const operators = {
     "+": function add(a, b) {
@@ -43,55 +23,70 @@ const operators = {
     },
 
     "/": function divide(a, b) {
+        if (b === 0) {
+            return;
+        }
         return a / b;
     },
 };
 
-function calculate(event) {
-    let operations = ["+", "-", "*", "/"];
+clearCalc = () => {
+    display.textContent = "0";
+    currentDisplayValue = "";
+    a = null;
+    b = null;
+    symbol = null;
+    result = null;
+};
 
-    for (let operator of operations) {
-        if (currentDisplayValue.includes(`${operator}`)) {
-            let array = currentDisplayValue.split(`${operator}`);
-            let a = parseFloat(array[0]);
-            let b = parseFloat(array[1]);
+function operate(symbol, a, b) {
+    return operators[symbol](a, b);
+}
 
-            currentResult =
-                Math.floor(operators[`${operator}`](a, b) * 1000) / 1000;
-
-            currentDisplayValue = currentResult;
-            calcDisplay.textContent = currentResult;
-
-            return currentResult;
-        }
-        continue;
+function getValues() {
+    if (!symbol) {
+        a = parseFloat(currentDisplayValue);
+        console.log(`a = ${a}`);
+        return a;
     }
+
+    if (symbol) {
+        b = parseFloat(currentDisplayValue);
+        console.log(`b = ${b}`);
+        return b;
+    }
+    return;
 }
 
 function displayNumbers(e) {
-    if (calcDisplay.textContent === "0") {
-        calcDisplay.textContent = e.target.value;
-    } else {
-        calcDisplay.textContent += e.target.value;
+    let strNum = e.target.value;
+
+    let operators = ["+", "-", "*", "/"];
+    for (let operator of operators) {
+        if (display.textContent === operator) {
+            display.textContent = "";
+        }
     }
-    currentDisplayValue = calcDisplay.textContent;
+
+    if (display.textContent === "0") display.textContent = strNum;
+    else {
+        display.textContent += strNum;
+    }
+
+    currentDisplayValue = display.textContent;
     console.log(currentDisplayValue);
-    return currentDisplayValue;
+    getValues();
 }
 
-function displayOperator(e) {
-    if (calcDisplay.textContent.includes(`${e.target.value}`)) return;
-    else {
-        calcDisplay.textContent += e.target.value;
-    }
+function displaySymbol(e) {
+    let operator = e.target.value;
+    symbol = operator;
+    display.textContent = operator;
+    return symbol;
 }
 
 allNumbers.forEach((number) =>
     number.addEventListener("click", displayNumbers)
 );
-allOperators.forEach((operator) =>
-    operator.addEventListener("click", displayOperator)
-);
-equals.addEventListener("click", calculate);
-clearBtn.addEventListener("click", clearDisplay);
-backspaceBtn.addEventListener("click", deleteLastChar);
+operations.forEach((symbol) => symbol.addEventListener("click", displaySymbol));
+clear.addEventListener("click", clearCalc);
