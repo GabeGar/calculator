@@ -41,7 +41,7 @@ body {
 
 button {
     background-color: #fff;
-    color: rgb(28, 28, 28);
+    color: #252525;
     border: 1px solid #b5b5b5;
     border-radius: 3px;
     height: 60px;
@@ -55,41 +55,41 @@ button:hover {
 
 .backspace {
     font-size: 1.5rem;
-    background-color: #d23232;
+    background-color: #337cac;
     color: white;
     grid-row: 5 / 5;
     grid-column: 2 / 2;
 }
 
 .backspace:hover {
-    background-color: #e04343;
+    background-color: #3495d5;
 }
 
 .operator {
-    color: #337cac;
+    color: #24b668;
 }
 
 .all_clear {
-    color: #d23232;
+    background-color: #b62b2b;
+    color: #fff;
     grid-row: 5 / 5;
     grid-column: 1 / 1;
 }
 
 .all_clear:hover {
-    background-color: #d9d9d9;
-    color: #ff0000;
+    background-color: #e43232;
 }
 
 .equal_sign {
-    background-color: #2e86c0;
-    border-color: #337cac;
+    background-color: #1fbf6a;
+    border-color: #337dae;
     color: #fff;
     grid-row: 5 / 5;
     grid-column: 3/ 5;
 }
 
 .equal_sign:hover {
-    background-color: #4e9ed4;
+    background-color: #20d072;
 }
 
 .calculator_buttons {
