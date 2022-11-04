@@ -47,8 +47,12 @@ const clearCalc = () => {
 const removeFromEnd = () => {
     let displayLength = display.textContent.length;
 
-    if (displayLength === 1) display.textContent = "0";
-    else {
+    if (displayLength === 1) {
+        display.textContent = "0";
+        a = null;
+        b = null;
+        result = null;
+    } else {
         display.textContent = display.textContent.slice(0, displayLength - 1);
     }
     currentDisplayValue = display.textContent;
@@ -75,14 +79,14 @@ const negateNum = () => {
 };
 
 function operate() {
-    if (a && !b) {
-        result = a;
-        return result;
+    if (!a && !b) {
+        return;
     }
 
     if (result || result === 0) {
         a = result;
     }
+
     result = Math.floor(operators[symbol](a, b) * 1000) / 1000;
     display.textContent = result;
     currentDisplayValue = display.textContent;
