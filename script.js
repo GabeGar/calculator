@@ -70,12 +70,15 @@ const negateNum = () => {
 };
 
 function operate() {
+    if (a && !b) return;
+
     if (result) {
         a = result;
     }
     result = Math.floor(operators[symbol](a, b) * 1000) / 1000;
     display.textContent = result;
     currentDisplayValue = display.textContent;
+    console.log(result);
     return result;
 }
 
