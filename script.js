@@ -3,6 +3,7 @@ const allNumbers = document.querySelectorAll(".number");
 const operations = document.querySelectorAll(".operator");
 const clear = document.querySelector(".all_clear");
 const backspace = document.querySelector(".backspace");
+const negation = document.querySelector(".negation");
 
 let currentDisplayValue = "";
 let a = null;
@@ -39,6 +40,7 @@ const clearCalc = () => {
     symbol = null;
     result = null;
     console.clear();
+    return;
 };
 
 const removeFromEnd = () => {
@@ -49,7 +51,23 @@ const removeFromEnd = () => {
         display.textContent = display.textContent.slice(0, displayLength - 1);
     }
     currentDisplayValue = display.textContent;
+    console.log(currentDisplayValue);
     return currentDisplayValue;
+};
+
+const negateNum = () => {
+    let currentNum = parseFloat(display.textContent);
+    if (currentNum === a) {
+        a = -a;
+        display.textContent = a;
+        return a;
+    }
+    if (currentNum === b) {
+        b = -b;
+        display.textContent = b;
+        return b;
+    }
+    return;
 };
 
 function operate(symbol, a, b) {
@@ -89,6 +107,7 @@ function displayNumbers(e) {
     currentDisplayValue = display.textContent;
     console.log(currentDisplayValue);
     getValues();
+    return;
 }
 
 function displaySymbol(e) {
@@ -98,9 +117,11 @@ function displaySymbol(e) {
     return symbol;
 }
 
+// Hooked up event Listeners
 allNumbers.forEach((number) =>
     number.addEventListener("click", displayNumbers)
 );
 operations.forEach((symbol) => symbol.addEventListener("click", displaySymbol));
 clear.addEventListener("click", clearCalc);
 backspace.addEventListener("click", removeFromEnd);
+negation.addEventListener("click", negateNum);
