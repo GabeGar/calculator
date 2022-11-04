@@ -52,7 +52,6 @@ const removeFromEnd = () => {
         display.textContent = display.textContent.slice(0, displayLength - 1);
     }
     currentDisplayValue = display.textContent;
-    console.log(currentDisplayValue);
     return currentDisplayValue;
 };
 
@@ -68,20 +67,13 @@ const negateNum = () => {
         display.textContent = b;
         return b;
     }
-    if (currentNum === result) {
-        result = -result;
-        display.textContent = result;
-        return result;
-    }
-    return;
 };
 
 function operate() {
-    if (a && !b) return;
     if (result) {
         a = result;
     }
-    result = Math.floor(operators[symbol](a, b) * 1000000) / 1000000;
+    result = Math.floor(operators[symbol](a, b) * 1000) / 1000;
     display.textContent = result;
     currentDisplayValue = display.textContent;
     return result;
@@ -90,13 +82,11 @@ function operate() {
 function getValues() {
     if (!symbol) {
         a = parseFloat(currentDisplayValue);
-        // console.log(`a = ${a}`);
         return a;
     }
 
     if (symbol) {
         b = parseFloat(currentDisplayValue);
-        // console.log(`b = ${b}`);
         return b;
     }
     return;
@@ -129,7 +119,6 @@ function displaySymbol(e) {
     return symbol;
 }
 
-// Hooked up event Listeners
 allNumbers.forEach((number) =>
     number.addEventListener("click", displayNumbers)
 );
