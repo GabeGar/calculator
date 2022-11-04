@@ -11,16 +11,18 @@ let currentResult = 0;
 function clearDisplay() {
     calcDisplay.textContent = "0";
     currentDisplayValue = "";
+    console.clear();
 }
 
-function deleteLastChar(event) {
+function deleteLastChar() {
     let displayLength = calcDisplay.textContent.length;
-    let lastNum = calcDisplay.textContent[displayLength - 1];
-
     if (calcDisplay.textContent.length === 1) {
         calcDisplay.textContent = "0";
     } else {
-        calcDisplay.textContent = calcDisplay.textContent.replace(lastNum, "");
+        calcDisplay.textContent = currentDisplayValue.slice(
+            0,
+            displayLength - 1
+        );
     }
     currentDisplayValue = calcDisplay.textContent;
     console.log(currentDisplayValue);
@@ -47,6 +49,7 @@ const operators = {
 
 function calculate(event) {
     let operations = ["+", "-", "*", "/"];
+
     for (let operator of operations) {
         if (currentDisplayValue.includes(`${operator}`)) {
             let array = currentDisplayValue.split(`${operator}`);
@@ -55,14 +58,14 @@ function calculate(event) {
 
             currentResult =
                 Math.floor(operators[`${operator}`](a, b) * 1000) / 1000;
+
             currentDisplayValue = currentResult;
             calcDisplay.textContent = currentResult;
+
             return currentResult;
         }
         continue;
     }
-
-    // return operators[symbol](a, b);
 }
 
 function displayNumbers(e) {
