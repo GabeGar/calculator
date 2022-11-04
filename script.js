@@ -6,7 +6,7 @@ const backspace = document.querySelector(".backspace");
 const negation = document.querySelector(".negation");
 const equals = document.querySelector(".equal_sign");
 
-let currentDisplayValue = "";
+let currentDisplayValue = null;
 let a = null;
 let b = null;
 let symbol = null;
@@ -67,7 +67,6 @@ const negateNum = () => {
         display.textContent = b;
         return b;
     }
-
     if (currentNum === result) {
         result = -result;
         display.textContent = result;
@@ -81,7 +80,7 @@ function operate() {
         return result;
     }
 
-    if (result) {
+    if (result || result === 0) {
         a = result;
     }
     result = Math.floor(operators[symbol](a, b) * 1000) / 1000;
@@ -120,8 +119,7 @@ function displayNumbers(e) {
     }
 
     currentDisplayValue = display.textContent;
-    getValues();
-    return;
+    return getValues();
 }
 
 function displaySymbol(e) {
