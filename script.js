@@ -2,6 +2,7 @@ const calcDisplay = document.querySelector(".calculator_display");
 const allNumbers = document.querySelectorAll(".number");
 const clearBtn = document.querySelector(".all_clear");
 const backspaceBtn = document.querySelector(".backspace");
+const allOperators = document.querySelectorAll(".operator");
 
 let currentDisplayValue = "";
 
@@ -10,7 +11,7 @@ function clearDisplay() {
     currentDisplayValue = "";
 }
 
-function deleteLastDigit(event) {
+function deleteLastChar(event) {
     let displayLength = calcDisplay.textContent.length;
     let lastNum = calcDisplay.textContent[displayLength - 1];
 
@@ -46,22 +47,29 @@ function calculate(symbol, a, b) {
     return operators[symbol](a, b);
 }
 
-function displayNumbers(event) {
+function displayNumbers(e) {
     if (calcDisplay.textContent === "0") {
-        calcDisplay.textContent = event.target.value;
+        calcDisplay.textContent = e.target.value;
     } else {
-        calcDisplay.textContent += event.target.value;
+        calcDisplay.textContent += e.target.value;
     }
     currentDisplayValue = calcDisplay.textContent;
     console.log(currentDisplayValue);
     return currentDisplayValue;
 }
 
+function displayOperator(e) {
+    if (calcDisplay.textContent.includes(`${e.target.value}`)) return;
+    else {
+        calcDisplay.textContent += e.target.value;
+    }
+}
+
 allNumbers.forEach((number) =>
     number.addEventListener("click", displayNumbers)
 );
-
-// Clears the display and stored value memory
+allOperators.forEach((operator) =>
+    operator.addEventListener("click", displayOperator)
+);
 clearBtn.addEventListener("click", clearDisplay);
-
-backspaceBtn.addEventListener("click", deleteLastDigit);
+backspaceBtn.addEventListener("click", deleteLastChar);
