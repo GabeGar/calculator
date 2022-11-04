@@ -67,10 +67,19 @@ const negateNum = () => {
         display.textContent = b;
         return b;
     }
+
+    if (currentNum === result) {
+        result = -result;
+        display.textContent = result;
+        return result;
+    }
 };
 
 function operate() {
-    if (a && !b) return;
+    if (a && !b) {
+        result = a;
+        return result;
+    }
 
     if (result) {
         a = result;
