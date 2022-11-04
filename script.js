@@ -3,8 +3,10 @@ const allNumbers = document.querySelectorAll(".number");
 const clearBtn = document.querySelector(".all_clear");
 const backspaceBtn = document.querySelector(".backspace");
 const allOperators = document.querySelectorAll(".operator");
+const equals = document.querySelector(".equal_sign");
 
 let currentDisplayValue = "";
+let currentResult = 0;
 
 function clearDisplay() {
     calcDisplay.textContent = "0";
@@ -43,8 +45,24 @@ const operators = {
     },
 };
 
-function calculate(symbol, a, b) {
-    return operators[symbol](a, b);
+function calculate(event) {
+    let operations = ["+", "-", "*", "/"];
+    for (let operator of operations) {
+        if (currentDisplayValue.includes(`${operator}`)) {
+            let array = currentDisplayValue.split(`${operator}`);
+            let a = parseFloat(array[0]);
+            let b = parseFloat(array[1]);
+
+            currentResult =
+                Math.floor(operators[`${operator}`](a, b) * 1000) / 1000;
+            currentDisplayValue = currentResult;
+            calcDisplay.textContent = currentResult;
+            return currentResult;
+        }
+        continue;
+    }
+
+    // return operators[symbol](a, b);
 }
 
 function displayNumbers(e) {
@@ -71,5 +89,6 @@ allNumbers.forEach((number) =>
 allOperators.forEach((operator) =>
     operator.addEventListener("click", displayOperator)
 );
+equals.addEventListener("click", calculate);
 clearBtn.addEventListener("click", clearDisplay);
 backspaceBtn.addEventListener("click", deleteLastChar);
