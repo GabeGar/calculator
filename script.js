@@ -4,6 +4,7 @@ const operations = document.querySelectorAll(".operator");
 const clear = document.querySelector(".all_clear");
 const backspace = document.querySelector(".backspace");
 const negation = document.querySelector(".negation");
+const equals = document.querySelector(".equal_sign");
 
 let currentDisplayValue = "";
 let a = null;
@@ -26,7 +27,7 @@ const operators = {
 
     "/": function divide(a, b) {
         if (b === 0) {
-            return;
+            return 0;
         }
         return a / b;
     },
@@ -67,23 +68,35 @@ const negateNum = () => {
         display.textContent = b;
         return b;
     }
+    if (currentNum === result) {
+        result = -result;
+        display.textContent = result;
+        return result;
+    }
     return;
 };
 
-function operate(symbol, a, b) {
-    return operators[symbol](a, b);
+function operate() {
+    if (a && !b) return;
+    if (result) {
+        a = result;
+    }
+    result = Math.floor(operators[symbol](a, b) * 1000000) / 1000000;
+    display.textContent = result;
+    currentDisplayValue = display.textContent;
+    return result;
 }
 
 function getValues() {
     if (!symbol) {
         a = parseFloat(currentDisplayValue);
-        console.log(`a = ${a}`);
+        // console.log(`a = ${a}`);
         return a;
     }
 
     if (symbol) {
         b = parseFloat(currentDisplayValue);
-        console.log(`b = ${b}`);
+        // console.log(`b = ${b}`);
         return b;
     }
     return;
@@ -105,7 +118,6 @@ function displayNumbers(e) {
     }
 
     currentDisplayValue = display.textContent;
-    console.log(currentDisplayValue);
     getValues();
     return;
 }
@@ -125,3 +137,4 @@ operations.forEach((symbol) => symbol.addEventListener("click", displaySymbol));
 clear.addEventListener("click", clearCalc);
 backspace.addEventListener("click", removeFromEnd);
 negation.addEventListener("click", negateNum);
+equals.addEventListener("click", operate);
