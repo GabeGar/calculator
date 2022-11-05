@@ -54,6 +54,9 @@ const removeFromEnd = () => {
         result = null;
     } else {
         display.textContent = display.textContent.slice(0, displayLength - 1);
+        a = null;
+        b = null;
+        result = display.textContent;
     }
     currentDisplayValue = display.textContent;
     return currentDisplayValue;
@@ -87,6 +90,11 @@ function operate() {
         a = result;
     }
 
+    if (a && !b) {
+        display.textContent = a;
+        return;
+    }
+
     result = Math.floor(operators[symbol](a, b) * 1000) / 1000;
     display.textContent = result;
     currentDisplayValue = display.textContent;
@@ -117,8 +125,13 @@ function displayNumbers(e) {
         }
     }
 
-    if (display.textContent === "0") display.textContent = strNum;
-    else {
+    if (display.textContent === `${result}`) {
+        clearCalc();
+    }
+
+    if (display.textContent === "0") {
+        display.textContent = strNum;
+    } else {
         display.textContent += strNum;
     }
 
