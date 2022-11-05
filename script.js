@@ -6,12 +6,14 @@ const backspace = document.querySelector(".backspace");
 const negation = document.querySelector(".negation");
 const equals = document.querySelector(".equal_sign");
 const decimal = document.querySelector(".decimal");
+const history = document.querySelector(".history");
 
 let currentDisplayValue = null;
 let a = null;
 let b = null;
 let symbol = null;
 let result = null;
+let dividedByZero = false;
 
 const operators = {
     "+": function add(a, b) {
@@ -27,21 +29,18 @@ const operators = {
     },
 
     "/": function divide(a, b) {
-        if (b === 0) {
-            return 0;
-        }
         return a / b;
     },
 };
 
 const clearCalc = () => {
+    history.textContent = "history";
     display.textContent = "0";
     currentDisplayValue = "";
     a = null;
     b = null;
     symbol = null;
     result = null;
-    console.clear();
     return;
 };
 
@@ -87,6 +86,12 @@ function operate() {
         return;
     }
 
+    if (symbol === "/" && b === 0) {
+        dividedByZero = true;
+        history.textContent = `Dividing by zero is outlawed.`;
+        return dividedByZero;
+    }
+
     if (result || result === 0) {
         a = result;
     }
@@ -99,7 +104,7 @@ function operate() {
     result = Math.floor(operators[symbol](a, b) * 1000) / 1000;
     display.textContent = result;
     currentDisplayValue = display.textContent;
-    console.log(result);
+    history.textContent = `${a} ${symbol} ${b} = `;
     return result;
 }
 
@@ -117,6 +122,11 @@ function getValues() {
 }
 
 function displayNumbers(e) {
+    if (dividedByZero) {
+        clearCalc();
+        dividedByZero = false;
+    }
+
     let strNum = e.target.value;
 
     let operators = ["+", "-", "*", "/"];
