@@ -52,6 +52,10 @@ const setToNull = () => {
     result = null;
 };
 
+const updateCurrentDisplayVal = () => {
+    currentDisplayValue = display.textContent;
+};
+
 const removeFromEnd = () => {
     let displayLength = display.textContent.length;
 
@@ -64,7 +68,7 @@ const removeFromEnd = () => {
         b = null;
         result = display.textContent;
     }
-    currentDisplayValue = display.textContent;
+    updateCurrentDisplayVal();
     return currentDisplayValue;
 };
 
@@ -107,7 +111,7 @@ function operate() {
         return;
     }
 
-    result = Math.floor(operators[symbol](a, b) * 10000) / 10000;
+    result = Math.floor(operators[symbol](a, b) * 100000) / 100000;
     display.textContent = result;
     if (symbol === "/") {
         history.textContent = `${a} ${specialDivisionSymbol} ${b} = `;
@@ -136,18 +140,20 @@ function displayNumbers(e) {
         dividedByZero = false;
     }
 
-    let strNum = e.target.value;
+    if (display.textContent === `${result}`) {
+        clearCalc();
+    }
 
     let operators = ["+", "-", "*", `${specialDivisionSymbol}`];
+
     for (let operator of operators) {
         if (display.textContent === operator) {
             display.textContent = "";
         }
+        continue;
     }
 
-    if (display.textContent === `${result}`) {
-        clearCalc();
-    }
+    let strNum = e.target.value;
 
     if (display.textContent === "0") {
         display.textContent = strNum;
@@ -155,7 +161,7 @@ function displayNumbers(e) {
         display.textContent += strNum;
     }
 
-    currentDisplayValue = display.textContent;
+    updateCurrentDisplayVal();
     return getValues();
 }
 
@@ -174,8 +180,18 @@ function displaySymbol(e) {
 function displayDecimal(e) {
     let decimal = e.target.value;
 
-    if (display.textContent.includes(`${decimal}`)) return;
-    else {
+    if (display.textContent.includes(`${decimal}`)) {
+        return;
+    }
+
+    if (
+        (display.textContent === "0" && !b) ||
+        (display.textContent === symbol && !b) ||
+        (display.textContent === symbol && result && b && a)
+    ) {
+        display.textContent = "";
+        display.textContent += `${0}${decimal}`;
+    } else {
         display.textContent += decimal;
     }
     return;
