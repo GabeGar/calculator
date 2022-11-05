@@ -92,7 +92,7 @@ const negateNum = () => {
 };
 
 function operate() {
-    if (!a && !b) {
+    if (!a && !symbol && !b) {
         return;
     }
 
@@ -138,6 +138,7 @@ function displayNumbers(e) {
     if (dividedByZero) {
         clearCalc();
         dividedByZero = false;
+        return dividedByZero;
     }
 
     if (display.textContent === `${result}`) {
