@@ -14,6 +14,7 @@ let b = null;
 let symbol = null;
 let result = null;
 let dividedByZero = false;
+let specialDivisionSymbol = "÷";
 
 const operators = {
     "+": function add(a, b) {
@@ -44,14 +45,19 @@ const clearCalc = () => {
     return;
 };
 
+const setToNull = () => {
+    a = null;
+    b = null;
+    symbol = null;
+    result = null;
+};
+
 const removeFromEnd = () => {
     let displayLength = display.textContent.length;
 
     if (displayLength === 1) {
         display.textContent = "0";
-        a = null;
-        b = null;
-        result = null;
+        setToNull();
     } else {
         display.textContent = display.textContent.slice(0, displayLength - 1);
         a = null;
@@ -101,10 +107,13 @@ function operate() {
         return;
     }
 
-    result = Math.floor(operators[symbol](a, b) * 1000) / 1000;
+    result = Math.floor(operators[symbol](a, b) * 10000) / 10000;
     display.textContent = result;
-    currentDisplayValue = display.textContent;
-    history.textContent = `${a} ${symbol} ${b} = `;
+    if (symbol === "/") {
+        history.textContent = `${a} ${specialDivisionSymbol} ${b} = `;
+    } else {
+        history.textContent = `${a} ${symbol} ${b} = `;
+    }
     return result;
 }
 
@@ -129,7 +138,7 @@ function displayNumbers(e) {
 
     let strNum = e.target.value;
 
-    let operators = ["+", "-", "*", "/"];
+    let operators = ["+", "-", "*", `${specialDivisionSymbol}`];
     for (let operator of operators) {
         if (display.textContent === operator) {
             display.textContent = "";
@@ -153,7 +162,12 @@ function displayNumbers(e) {
 function displaySymbol(e) {
     let operator = e.target.value;
     symbol = operator;
-    display.textContent = operator;
+
+    if (operator === "/") {
+        display.textContent = specialDivisionSymbol;
+    } else {
+        display.textContent = operator;
+    }
     return symbol;
 }
 
