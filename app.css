@@ -31,12 +31,18 @@ body {
 }
 
 .calculator_display {
+    display: flex;
+    justify-content: space-between;
     font-size: 1.75rem;
     text-align: end;
     padding: 15px 15px 10px;
     background-color: #252525;
     color: white;
     overflow: auto;
+}
+
+.calc.history {
+    font-size: 1rem;
 }
 
 button {
