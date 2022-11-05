@@ -111,7 +111,7 @@ function operate() {
         return;
     }
 
-    result = Math.floor(operators[symbol](a, b) * 100000) / 100000;
+    result = Math.floor(operators[symbol](a, b) * 10000) / 10000;
     display.textContent = result;
     if (symbol === "/") {
         history.textContent = `${a} ${specialDivisionSymbol} ${b} = `;
@@ -186,8 +186,14 @@ function displayDecimal(e) {
 
     if (
         (display.textContent === "0" && !b) ||
-        (display.textContent === symbol && !b) ||
-        (display.textContent === symbol && result && b && a)
+        ((display.textContent === symbol ||
+            display.textContent === specialDivisionSymbol) &&
+            !b) ||
+        ((display.textContent === symbol ||
+            display.textContent === specialDivisionSymbol) &&
+            result &&
+            b &&
+            a)
     ) {
         display.textContent = "";
         display.textContent += `${0}${decimal}`;
