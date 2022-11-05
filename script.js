@@ -5,6 +5,7 @@ const clear = document.querySelector(".all_clear");
 const backspace = document.querySelector(".backspace");
 const negation = document.querySelector(".negation");
 const equals = document.querySelector(".equal_sign");
+const decimal = document.querySelector(".decimal");
 
 let currentDisplayValue = null;
 let a = null;
@@ -146,6 +147,16 @@ function displaySymbol(e) {
     return symbol;
 }
 
+function displayDecimal(e) {
+    let decimal = e.target.value;
+
+    if (display.textContent.includes(`${decimal}`)) return;
+    else {
+        display.textContent += decimal;
+    }
+    return;
+}
+
 allNumbers.forEach((number) =>
     number.addEventListener("click", displayNumbers)
 );
@@ -154,3 +165,4 @@ clear.addEventListener("click", clearCalc);
 backspace.addEventListener("click", removeFromEnd);
 negation.addEventListener("click", negateNum);
 equals.addEventListener("click", operate);
+decimal.addEventListener("click", displayDecimal);
